@@ -26,7 +26,7 @@ const AdminDashboard = () => {
     try {
       await API.patch(`/users/${userId}`, { active: !currentStatus });
       toast.success("User status updated");
-      fetchUsers(); // Refresh the list
+      fetchUsers(); // Refresh the list to show the change
     } catch (err) {
       toast.error("Action failed");
     }
@@ -36,13 +36,13 @@ const AdminDashboard = () => {
     return <div className="text-center mt-10">Loading Dashboard...</div>;
 
   return (
-    <div className="bg-white rounded-xl shadow-md overflow-hidden">
-      <div className="bg-gray-800 p-6 flex items-center justify-between">
-        <h2 className="text-white text-xl font-bold flex items-center gap-2">
+    <div className="bg-white rounded-xl shadow-md overflow-hidden max-w-5xl mx-auto">
+      <div className="bg-gray-900 p-6 flex items-center justify-between text-white">
+        <h2 className="text-xl font-bold flex items-center gap-2">
           <Shield /> Admin User Management
         </h2>
-        <span className="bg-blue-500 text-white text-xs px-2 py-1 rounded-full">
-          {users.length} Total Users
+        <span className="bg-blue-600 px-3 py-1 rounded-full text-sm">
+          {users.length} Users Found
         </span>
       </div>
 
@@ -51,7 +51,7 @@ const AdminDashboard = () => {
           <thead className="bg-gray-50 border-b">
             <tr>
               <th className="px-6 py-4 text-sm font-semibold text-gray-600">
-                User
+                User Details
               </th>
               <th className="px-6 py-4 text-sm font-semibold text-gray-600">
                 Role
@@ -64,17 +64,27 @@ const AdminDashboard = () => {
               </th>
             </tr>
           </thead>
-          <tbody className="divide-y">
+          <tbody className="divide-y divide-gray-100">
             {users.map((u) => (
-              <tr key={u._id} className="hover:bg-gray-50">
+              <tr key={u._id} className="hover:bg-gray-50 transition">
                 <td className="px-6 py-4">
-                  <div className="font-medium text-gray-900">{u.fullName}</div>
+                  <div className="font-bold text-gray-800">{u.fullName}</div>
                   <div className="text-sm text-gray-500">{u.email}</div>
                 </td>
-                <td className="px-6 py-4 capitalize">{u.role}</td>
+                <td className="px-6 py-4 text-sm">
+                  <span
+                    className={`px-2 py-1 rounded uppercase font-bold text-[10px] ${
+                      u.role === "admin"
+                        ? "bg-purple-100 text-purple-700"
+                        : "bg-gray-100 text-gray-700"
+                    }`}
+                  >
+                    {u.role}
+                  </span>
+                </td>
                 <td className="px-6 py-4">
                   <span
-                    className={`px-2 py-1 rounded-full text-xs ${
+                    className={`px-2 py-1 rounded-full text-xs font-medium ${
                       u.active
                         ? "bg-green-100 text-green-700"
                         : "bg-red-100 text-red-700"
@@ -86,8 +96,10 @@ const AdminDashboard = () => {
                 <td className="px-6 py-4">
                   <button
                     onClick={() => toggleUserStatus(u._id, u.active)}
-                    className={`flex items-center gap-1 text-sm font-medium ${
-                      u.active ? "text-red-600" : "text-green-600"
+                    className={`flex items-center gap-1 text-sm font-bold ${
+                      u.active
+                        ? "text-red-500 hover:text-red-700"
+                        : "text-green-500 hover:text-green-700"
                     }`}
                   >
                     {u.active ? (

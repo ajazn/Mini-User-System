@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { LogOut, User, ShieldCheck } from "lucide-react"; // Icons
+import { LogOut, User, ShieldCheck, LayoutDashboard } from "lucide-react";
 
 const Navbar = () => {
   const { user, logout } = useAuth();
@@ -12,39 +12,43 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-white shadow-md px-6 py-4 flex justify-between items-center">
+    <nav className="bg-white shadow-sm border-b border-gray-100 px-6 py-4 flex justify-between items-center">
+      {/* Logo */}
       <Link
         to="/"
         className="text-xl font-bold text-blue-600 flex items-center gap-2"
       >
         <ShieldCheck size={28} />
-        <span>UserSystem</span>
+        <span className="tracking-tight">AuthSystem</span>
       </Link>
 
       <div className="flex items-center gap-6">
         {user ? (
           <>
-            {/* Show Admin Dashboard link only if user is an admin */}
+            {/* ADMIN ONLY LINK: Only visible if user.role is 'admin' */}
             {user.role === "admin" && (
               <Link
                 to="/admin"
-                className="text-gray-600 hover:text-blue-600 font-medium"
+                className="flex items-center gap-1 text-gray-600 hover:text-blue-600 font-semibold transition"
               >
-                Admin Panel
+                <LayoutDashboard size={18} />
+                <span>Admin Panel</span>
               </Link>
             )}
 
+            {/* Profile Link */}
             <Link
               to="/profile"
-              className="flex items-center gap-1 text-gray-600 hover:text-blue-600"
+              className="flex items-center gap-1 text-gray-600 hover:text-blue-600 font-medium transition"
             >
               <User size={18} />
               <span>{user.fullName}</span>
             </Link>
 
+            {/* Logout Button */}
             <button
               onClick={handleLogout}
-              className="flex items-center gap-1 text-red-500 hover:text-red-700 font-medium"
+              className="flex items-center gap-1 text-red-500 hover:text-red-700 font-medium transition pl-2 border-l border-gray-200"
             >
               <LogOut size={18} />
               <span>Logout</span>
@@ -52,6 +56,7 @@ const Navbar = () => {
           </>
         ) : (
           <>
+            {/* Guest Links */}
             <Link
               to="/login"
               className="text-gray-600 hover:text-blue-600 font-medium"
@@ -60,7 +65,7 @@ const Navbar = () => {
             </Link>
             <Link
               to="/signup"
-              className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition"
+              className="bg-blue-600 text-white px-5 py-2 rounded-full hover:bg-blue-700 transition shadow-sm font-medium"
             >
               Sign Up
             </Link>

@@ -11,6 +11,7 @@ import Navbar from "./components/Navbar";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Profile from "./pages/Profile";
+import AdminDashboard from "./pages/AdminDashboard";
 // import AdminDashboard from './pages/AdminDashboard'; // We will create this next
 
 function App() {
@@ -49,11 +50,16 @@ function App() {
             />
 
             {/* Admin Route: Only for users with role 'admin' */}
-            {/* <Route 
-              path="/admin" 
-              element={user?.role === 'admin' ? <AdminDashboard /> : <Navigate to="/profile" />} 
-            /> 
-            */}
+            <Route
+              path="/admin"
+              element={
+                user?.role === "admin" ? (
+                  <AdminDashboard />
+                ) : (
+                  <Navigate to="/profile" />
+                )
+              }
+            />
 
             {/* Default Redirects */}
             <Route
