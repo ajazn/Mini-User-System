@@ -5,6 +5,7 @@ import jwt from "jsonwebtoken";
 
 //SIGNUP
 export const signup = async (req, res) => {
+  console.log("Data received from Postman:", req.body);
   try {
     // 1. Create new user
     // Only allow specific fields to prevent users from making themselves 'admin'
@@ -17,6 +18,8 @@ export const signup = async (req, res) => {
     // 2. Generate token and send response
     createSendToken(newUser, 201, res);
   } catch (err) {
+    console.log(err.keyPattern);
+    console.log(err.keyValue);
     // Handle duplicate email error (MongoDB Error Code 11000)
     if (err.code === 11000) {
       return res.status(400).json({
