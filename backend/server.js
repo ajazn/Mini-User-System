@@ -2,6 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
+import userRouter from "./routes/userRoutes.js";
 
 // Load environment variables
 dotenv.config();
@@ -11,6 +12,7 @@ const app = express();
 // Middleware
 app.use(express.json());
 app.use(cors());
+app.use("/api/users", userRouter);
 
 // Test Route
 app.get("/", (req, res) => {
