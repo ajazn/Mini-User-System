@@ -9,7 +9,21 @@ const Profile = () => {
   const [fullName, setFullName] = useState(user?.fullName || "");
   const [password, setPassword] = useState("");
   const [isUpdating, setIsUpdating] = useState(false);
+  const [aiInsights, setAiInsights] = useState(null);
+  const [isAiLoading, setIsAiLoading] = useState(false);
 
+  const handleAIRequest = async () => {
+    setIsAiLoading(true);
+    try {
+      const res = await API.get("/users/ai-summary");
+      setAiInsights(res.data.data);
+      toast.success("AI Profile generated!");
+    } catch (err) {
+      toast.error("AI Simulation failed");
+    } finally {
+      setIsAiLoading(false);
+    }
+  };
   const handleUpdate = async (e) => {
     e.preventDefault();
     setIsUpdating(true);
@@ -39,6 +53,47 @@ const Profile = () => {
           <p className="text-slate-400">{user?.email}</p>
         </div>
       </div>
+
+      {/* --- AI SECTION START --- */}
+      <div className="mb-8 p-4 bg-linear-to-r from-blue-50 to-indigo-50 rounded-xl border border-blue-100">
+        <div className="flex items-center justify-between mb-2">
+          <h3 className="text-sm font-bold text-blue-800 flex items-center gap-2">
+            <span className="text-lg">✨</span> AI Profile Simulation
+          </h3>
+          <button
+            type="button"
+            onClick={handleAIRequest}
+            disabled={isAiLoading}
+            className="text-xs bg-blue-600 text-white px-3 py-1.5 rounded-lg hover:bg-blue-700 transition disabled:opacity-50"
+          >
+            {isAiLoading ? "Simulating..." : "Generate AI Bio"}
+          </button>
+        </div>
+
+        {aiInsights ? (
+          <div className="space-y-3 animate-in fade-in duration-500">
+            <p className="text-sm text-gray-700 leading-relaxed italic">
+              "{aiInsights.summary}"
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {aiInsights.tags.map((tag, index) => (
+                <span
+                  key={index}
+                  className="bg-white border border-blue-200 text-blue-600 text-[10px] uppercase font-bold px-2 py-0.5 rounded shadow-sm"
+                >
+                  #{tag}
+                </span>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <p className="text-xs text-gray-500">
+            Click to generate an AI-powered professional summary and tags based
+            on your role.
+          </p>
+        )}
+      </div>
+      {/* --- AI SECTION END --- */}
 
       <form onSubmit={handleUpdate} className="space-y-6">
         <div>

@@ -10,6 +10,7 @@ import {
   updateUser,
 } from "../controllers/userController.js";
 import { protect, restrictTo } from "../middleware/authMiddleware.js";
+import { generateUserSummary } from "../controllers/aiController.js";
 
 const router = express.Router();
 
@@ -22,6 +23,9 @@ router.post("/reset-password", resetPassword);
 // Protected routes (available to any logged-in user)
 router.get("/me", protect, getMe);
 router.patch("/updateMe", protect, updateMe);
+
+//AI route
+router.get("/ai-summary", protect, generateUserSummary);
 
 // Admin only routes
 // These allow the Admin to see everyone and update their status
