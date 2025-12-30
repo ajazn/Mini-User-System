@@ -128,3 +128,82 @@ export const updateUser = async (req, res) => {
     res.status(400).json({ status: "fail", message: err.message });
   }
 };
+
+// 7. FORGOT PASSWORD - Verify Email
+export const forgotPassword = async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    if (!email) {
+      return res.status(400).json({
+        status: "fail",
+        message: "Please provide an email",
+      });
+    }
+
+    // Check if user exists
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({
+        status: "fail",
+        message: "No user found with that email",
+      });
+    }
+
+    // In a real app, you would send a reset email here
+    // For now, we'll just verify the email exists
+    res.status(200).json({
+      status: "success",
+      message: "Email verified. You can now reset your password.",
+    });
+  } catch (err) {
+    res.status(500).json({
+      status: "fail",
+      message: err.message,
+    });
+  }
+};
+
+// 8. RESET PASSWORD - Change Password
+export const resetPassword = async (req, res) => {
+  try {
+    const { email, newPassword } = req.body;
+
+    if (!email || !newPassword) {
+      return res.status(400).json({
+        status: "fail",
+        message: "Please provide email and new password",
+      });
+    }
+
+    if (newPassword.length < 8) {
+      return res.status(400).json({
+        status: "fail",
+        message: "Password must be at least 8 characters",
+      });
+    }
+
+    // Find user and update password
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({
+        status: "fail",
+        message: "No user found with that email",
+      });
+    }
+
+    // Update password (the pre-save hook will hash it)
+    user.password = newPassword;
+    await user.save({ validateBeforeSave: true });
+
+    res.status(200).json({
+      status: "success",
+      message: "Password reset successfully!",
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: "fail",
+      message: err.message,
+    });
+  }
+};

@@ -10,6 +10,7 @@ import { useAuth } from "./context/AuthContext";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import ForgotPassword from "./pages/ForgotPassword";
 import Profile from "./pages/Profile";
 import AdminDashboard from "./pages/AdminDashboard";
 
@@ -22,7 +23,7 @@ function App() {
   // Prevents "flickering" while checking the login token
   if (loading) {
     return (
-      <div className="h-screen flex items-center justify-center bg-gray-50">
+      <div className="h-screen flex items-center justify-center bg-linear-to-br from-slate-900 to-slate-950">
         <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-600"></div>
       </div>
     );
@@ -30,11 +31,11 @@ function App() {
 
   return (
     <Router>
-      <div className="min-h-screen bg-gray-50 flex flex-col">
+      <div className="min-h-screen bg-linear-to-br from-slate-900 via-slate-900 to-slate-950 flex flex-col">
         <Navbar />
 
         {/* Main Content Area */}
-        <main className="grow">
+        <main className="grow py-12 px-4">
           <Routes>
             {/* 1. Public Route: Anyone can see this */}
             <Route path="/" element={<Home />} />
@@ -47,6 +48,10 @@ function App() {
             <Route
               path="/signup"
               element={!user ? <Signup /> : <Navigate to="/profile" />}
+            />
+            <Route
+              path="/forgot-password"
+              element={!user ? <ForgotPassword /> : <Navigate to="/profile" />}
             />
 
             {/* 3. Protected Route: Only for logged-in users */}
@@ -73,7 +78,7 @@ function App() {
         </main>
 
         {/* Simple Footer */}
-        <footer className="bg-white border-t border-gray-100 py-6 text-center text-gray-400 text-sm">
+        <footer className="bg-slate-800 border-t border-slate-700 py-6 text-center text-slate-400 text-sm">
           &copy; {new Date().getFullYear()} UserSystem Project. All rights
           reserved.
         </footer>

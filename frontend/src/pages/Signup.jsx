@@ -27,49 +27,54 @@ const Signup = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
-      <div className="max-w-md w-full space-y-8 bg-white p-10 rounded-xl shadow-lg">
-        <h2 className="text-center text-3xl font-extrabold text-gray-900">
-          Create your account
-        </h2>
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-          <div className="rounded-md shadow-sm space-y-4">
+    <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-slate-900 via-slate-900 to-slate-950 px-4">
+      <div className="max-w-md w-full space-y-8 bg-slate-800 border border-slate-700 p-10 rounded-2xl shadow-2xl">
+        <div className="text-center">
+          <h2 className="text-3xl font-bold text-white mb-2">
+            Create your account
+          </h2>
+          <p className="text-slate-400 text-sm">
+            Join us today and get started
+          </p>
+        </div>
+        <form className="mt-8 space-y-5" onSubmit={handleSubmit}>
+          <div className="space-y-5">
             <div>
-              <label className="block text-sm font-medium text-gray-700">
+              <label className="block text-sm font-medium text-slate-300 mb-2">
                 Full Name
               </label>
               <input
                 type="text"
                 required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                placeholder="Enter Full Name"
+                className="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30 transition-all duration-200"
+                placeholder="Enter your full name"
                 onChange={(e) =>
                   setFormData({ ...formData, fullName: e.target.value })
                 }
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">
+              <label className="block text-sm font-medium text-slate-300 mb-2">
                 Email Address
               </label>
               <input
                 type="email"
                 required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                placeholder="Enter your email"
+                className="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30 transition-all duration-200"
+                placeholder="you@example.com"
                 onChange={(e) =>
                   setFormData({ ...formData, email: e.target.value })
                 }
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">
+              <label className="block text-sm font-medium text-slate-300 mb-2">
                 Password
               </label>
               <input
                 type="password"
                 required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                className="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30 transition-all duration-200"
                 placeholder="••••••••"
                 onChange={(e) =>
                   setFormData({ ...formData, password: e.target.value })
@@ -80,17 +85,17 @@ const Signup = () => {
 
           <button
             type="submit"
-            className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-150"
+            className="w-full py-3 px-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500/50 active:scale-95"
           >
             Sign Up
           </button>
 
-          <div className="text-center text-sm">
-            <p className="text-gray-600">
+          <div className="text-center text-sm pt-2">
+            <p className="text-slate-400">
               Already have an account?{" "}
               <Link
                 to="/login"
-                className="font-medium text-blue-600 hover:text-blue-500"
+                className="font-medium text-blue-400 hover:text-blue-300 transition-colors"
               >
                 Log in
               </Link>

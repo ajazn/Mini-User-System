@@ -29,27 +29,27 @@ const Profile = () => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto mt-10 p-6 bg-white rounded-xl shadow-md">
-      <div className="flex items-center gap-4 mb-8 border-b pb-4">
-        <div className="bg-blue-100 p-3 rounded-full">
-          <User className="text-blue-600" size={32} />
+    <div className="max-w-2xl mx-auto mt-10 p-8 bg-slate-800 border border-slate-700 rounded-xl shadow-xl">
+      <div className="flex items-center gap-4 mb-8 border-b border-slate-700 pb-4">
+        <div className="bg-blue-500/20 p-3 rounded-full">
+          <User className="text-blue-400" size={32} />
         </div>
         <div>
-          <h2 className="text-2xl font-bold text-gray-800">Account Settings</h2>
-          <p className="text-gray-500">{user?.email}</p>
+          <h2 className="text-2xl font-bold text-white">Account Settings</h2>
+          <p className="text-slate-400">{user?.email}</p>
         </div>
       </div>
 
       <form onSubmit={handleUpdate} className="space-y-6">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="block text-sm font-medium text-slate-300 mb-2">
             Full Name
           </label>
           <div className="relative">
-            <User className="absolute left-3 top-3 text-gray-400" size={18} />
+            <User className="absolute left-3 top-3 text-slate-400" size={18} />
             <input
               type="text"
-              className="w-full pl-10 pr-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+              className="w-full pl-10 pr-4 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30 transition"
               value={fullName}
               onChange={(e) => setFullName(e.target.value)}
             />
@@ -57,14 +57,14 @@ const Profile = () => {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="block text-sm font-medium text-slate-300 mb-2">
             New Password (leave blank to keep current)
           </label>
           <div className="relative">
-            <Lock className="absolute left-3 top-3 text-gray-400" size={18} />
+            <Lock className="absolute left-3 top-3 text-slate-400" size={18} />
             <input
               type="password"
-              className="w-full pl-10 pr-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+              className="w-full pl-10 pr-4 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30 transition"
               placeholder="••••••••"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -75,7 +75,7 @@ const Profile = () => {
         <button
           type="submit"
           disabled={isUpdating}
-          className="w-full bg-blue-600 text-white py-2 rounded-lg font-semibold hover:bg-blue-700 transition flex items-center justify-center gap-2"
+          className="w-full bg-blue-600 text-white py-2 rounded-lg font-semibold hover:bg-blue-700 transition flex items-center justify-center gap-2 disabled:opacity-50"
         >
           <Save size={18} />
           {isUpdating ? "Saving..." : "Save Changes"}

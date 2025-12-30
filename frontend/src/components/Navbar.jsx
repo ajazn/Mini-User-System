@@ -12,11 +12,11 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-white shadow-sm border-b border-gray-100 px-6 py-4 flex justify-between items-center">
+    <nav className="bg-slate-800 shadow-lg border-b border-slate-700 px-6 py-4 flex justify-between items-center">
       {/* Logo */}
       <Link
         to="/"
-        className="text-xl font-bold text-blue-600 flex items-center gap-2"
+        className="text-xl font-bold text-blue-400 flex items-center gap-2 hover:text-blue-300 transition"
       >
         <ShieldCheck size={28} />
         <span className="tracking-tight">AuthSystem</span>
@@ -29,7 +29,7 @@ const Navbar = () => {
             {user.role === "admin" && (
               <Link
                 to="/admin"
-                className="flex items-center gap-1 text-gray-600 hover:text-blue-600 font-semibold transition"
+                className="flex items-center gap-1 text-slate-300 hover:text-blue-400 font-semibold transition"
               >
                 <LayoutDashboard size={18} />
                 <span>Admin Panel</span>
@@ -39,7 +39,7 @@ const Navbar = () => {
             {/* Profile Link */}
             <Link
               to="/profile"
-              className="flex items-center gap-1 text-gray-600 hover:text-blue-600 font-medium transition"
+              className="flex items-center gap-1 text-slate-300 hover:text-blue-400 font-medium transition"
             >
               <User size={18} />
               <span>{user.fullName}</span>
@@ -48,7 +48,7 @@ const Navbar = () => {
             {/* Logout Button */}
             <button
               onClick={handleLogout}
-              className="flex items-center gap-1 text-red-500 hover:text-red-700 font-medium transition pl-2 border-l border-gray-200"
+              className="flex items-center gap-1 text-red-400 hover:text-red-300 font-medium transition pl-2 border-l border-slate-600"
             >
               <LogOut size={18} />
               <span>Logout</span>
@@ -59,13 +59,13 @@ const Navbar = () => {
             {/* Guest Links */}
             <Link
               to="/login"
-              className="text-gray-600 hover:text-blue-600 font-medium"
+              className="text-slate-300 hover:text-blue-400 font-medium transition"
             >
               Login
             </Link>
             <Link
               to="/signup"
-              className="bg-blue-600 text-white px-5 py-2 rounded-full hover:bg-blue-700 transition shadow-sm font-medium"
+              className="bg-blue-600 text-white px-5 py-2 rounded-full hover:bg-blue-700 transition shadow-lg font-medium"
             >
               Sign Up
             </Link>

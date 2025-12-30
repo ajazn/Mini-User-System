@@ -3,6 +3,8 @@ import {
   signup,
   login,
   getMe,
+  forgotPassword,
+  resetPassword,
   updateMe,
   getAllUsers,
   updateUser,
@@ -14,6 +16,8 @@ const router = express.Router();
 // Public routes
 router.post("/signup", signup);
 router.post("/login", login);
+router.post("/forgot-password", forgotPassword);
+router.post("/reset-password", resetPassword);
 
 // Protected routes (available to any logged-in user)
 router.get("/me", protect, getMe);

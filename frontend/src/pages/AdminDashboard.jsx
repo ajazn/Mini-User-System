@@ -48,11 +48,15 @@ const AdminDashboard = () => {
   };
 
   if (loading)
-    return <div className="text-center mt-10">Loading Dashboard...</div>;
+    return (
+      <div className="text-center mt-10 text-slate-300">
+        Loading Dashboard...
+      </div>
+    );
 
   return (
-    <div className="bg-white rounded-xl shadow-md overflow-hidden max-w-5xl mx-auto">
-      <div className="bg-gray-900 p-6 flex items-center justify-between text-white">
+    <div className="bg-slate-800 border border-slate-700 rounded-xl shadow-xl overflow-hidden max-w-5xl mx-auto">
+      <div className="bg-slate-900 p-6 flex items-center justify-between text-white border-b border-slate-700">
         <h2 className="text-xl font-bold flex items-center gap-2">
           <Shield /> Admin User Management
         </h2>
@@ -63,35 +67,35 @@ const AdminDashboard = () => {
 
       <div className="overflow-x-auto">
         <table className="w-full text-left">
-          <thead className="bg-gray-50 border-b">
+          <thead className="bg-slate-700 border-b border-slate-600">
             <tr>
-              <th className="px-6 py-4 text-sm font-semibold text-gray-600">
+              <th className="px-6 py-4 text-sm font-semibold text-slate-200">
                 User Details
               </th>
-              <th className="px-6 py-4 text-sm font-semibold text-gray-600">
+              <th className="px-6 py-4 text-sm font-semibold text-slate-200">
                 Role
               </th>
-              <th className="px-6 py-4 text-sm font-semibold text-gray-600">
+              <th className="px-6 py-4 text-sm font-semibold text-slate-200">
                 Status
               </th>
-              <th className="px-6 py-4 text-sm font-semibold text-gray-600">
+              <th className="px-6 py-4 text-sm font-semibold text-slate-200">
                 Actions
               </th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-gray-100">
+          <tbody className="divide-y divide-slate-700">
             {users.map((u) => (
-              <tr key={u._id} className="hover:bg-gray-50 transition">
+              <tr key={u._id} className="hover:bg-slate-700/50 transition">
                 <td className="px-6 py-4">
-                  <div className="font-bold text-gray-800">{u.fullName}</div>
-                  <div className="text-sm text-gray-500">{u.email}</div>
+                  <div className="font-bold text-white">{u.fullName}</div>
+                  <div className="text-sm text-slate-400">{u.email}</div>
                 </td>
                 <td className="px-6 py-4 text-sm">
                   <span
                     className={`px-2 py-1 rounded uppercase font-bold text-[10px] ${
                       u.role === "admin"
-                        ? "bg-purple-100 text-purple-700"
-                        : "bg-gray-100 text-gray-700"
+                        ? "bg-purple-500/30 text-purple-300"
+                        : "bg-slate-600 text-slate-200"
                     }`}
                   >
                     {u.role}
@@ -101,8 +105,8 @@ const AdminDashboard = () => {
                   <span
                     className={`px-2 py-1 rounded-full text-xs font-medium ${
                       u.active
-                        ? "bg-green-100 text-green-700"
-                        : "bg-red-100 text-red-700"
+                        ? "bg-green-500/30 text-green-300"
+                        : "bg-red-500/30 text-red-300"
                     }`}
                   >
                     {u.active ? "Active" : "Deactivated"}
@@ -111,10 +115,10 @@ const AdminDashboard = () => {
                 <td className="px-6 py-4">
                   <button
                     onClick={() => toggleUserStatus(u._id, u.active)}
-                    className={`flex items-center gap-1 text-sm font-bold ${
+                    className={`flex items-center gap-1 text-sm font-bold transition ${
                       u.active
-                        ? "text-red-500 hover:text-red-700"
-                        : "text-green-500 hover:text-green-700"
+                        ? "text-red-400 hover:text-red-300"
+                        : "text-green-400 hover:text-green-300"
                     }`}
                   >
                     {u.active ? (
