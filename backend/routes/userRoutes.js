@@ -2,27 +2,26 @@ import express from "express";
 import {
   signup,
   login,
-  protect,
   getMe,
-  restrictTo,
-} from "../controllers/authController.js";
-import {
+  updateMe,
   getAllUsers,
-  updateUserStatus,
-} from "../controllers/userController.js"; // Import new controllers
+  updateUser,
+} from "../controllers/userController.js";
+import { protect, restrictTo } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-// Public
+// Public routes
 router.post("/signup", signup);
 router.post("/login", login);
 
-// Protected (All logged-in users)
+// Protected routes (available to any logged-in user)
 router.get("/me", protect, getMe);
+router.patch("/updateMe", protect, updateMe);
 
-// Admin Only
-// Note: We chain protect AND restrictTo to ensure security
+// Admin only routes
+// These allow the Admin to see everyone and update their status
 router.get("/", protect, restrictTo("admin"), getAllUsers);
-router.patch("/status/:id", protect, restrictTo("admin"), updateUserStatus);
+router.patch("/:id", protect, restrictTo("admin"), updateUser);
 
 export default router;

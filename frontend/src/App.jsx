@@ -6,18 +6,20 @@ import {
 } from "react-router-dom";
 import { useAuth } from "./context/AuthContext";
 
-// Components
-import Navbar from "./components/Navbar";
+// Pages
+import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Profile from "./pages/Profile";
 import AdminDashboard from "./pages/AdminDashboard";
-// import AdminDashboard from './pages/AdminDashboard'; // We will create this next
+
+// Components
+import Navbar from "./components/Navbar";
 
 function App() {
   const { user, loading } = useAuth();
 
-  // Show a clean loading screen while checking if the user is logged in
+  // Prevents "flickering" while checking the login token
   if (loading) {
     return (
       <div className="h-screen flex items-center justify-center bg-gray-50">
@@ -28,12 +30,16 @@ function App() {
 
   return (
     <Router>
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-gray-50 flex flex-col">
         <Navbar />
 
-        <main className="container mx-auto px-4 py-8">
+        {/* Main Content Area */}
+        <main className="grow">
           <Routes>
-            {/* Public Routes: Redirect to profile if already logged in */}
+            {/* 1. Public Route: Anyone can see this */}
+            <Route path="/" element={<Home />} />
+
+            {/* 2. Auth Routes: Redirect to profile if user is already logged in */}
             <Route
               path="/login"
               element={!user ? <Login /> : <Navigate to="/profile" />}
@@ -43,13 +49,13 @@ function App() {
               element={!user ? <Signup /> : <Navigate to="/profile" />}
             />
 
-            {/* Private Route: Only for logged-in users */}
+            {/* 3. Protected Route: Only for logged-in users */}
             <Route
               path="/profile"
               element={user ? <Profile /> : <Navigate to="/login" />}
             />
 
-            {/* Admin Route: Only for users with role 'admin' */}
+            {/* 4. Admin Route: Only for users with 'admin' role */}
             <Route
               path="/admin"
               element={
@@ -61,21 +67,16 @@ function App() {
               }
             />
 
-            {/* Default Redirects */}
-            <Route
-              path="/"
-              element={<Navigate to={user ? "/profile" : "/login"} />}
-            />
-            <Route
-              path="*"
-              element={
-                <div className="text-center mt-20 text-2xl">
-                  404 - Page Not Found
-                </div>
-              }
-            />
+            {/* 5. Catch-all: Redirect unknown URLs to Home */}
+            <Route path="*" element={<Navigate to="/" />} />
           </Routes>
         </main>
+
+        {/* Simple Footer */}
+        <footer className="bg-white border-t border-gray-100 py-6 text-center text-gray-400 text-sm">
+          &copy; {new Date().getFullYear()} UserSystem Project. All rights
+          reserved.
+        </footer>
       </div>
     </Router>
   );

@@ -24,11 +24,26 @@ const AdminDashboard = () => {
 
   const toggleUserStatus = async (userId, currentStatus) => {
     try {
-      await API.patch(`/users/${userId}`, { active: !currentStatus });
-      toast.success("User status updated");
-      fetchUsers(); // Refresh the list to show the change
+      // This sends a request to the backend: PATCH /api/users/ID
+      const res = await API.patch(`/users/${userId}`, {
+        active: !currentStatus,
+      });
+
+      if (res.data.status === "success") {
+        toast.success(
+          `User is now ${!currentStatus ? "Active" : "Deactivated"}`
+        );
+
+        // This line updates the UI immediately without needing to refresh the page
+        setUsers((prevUsers) =>
+          prevUsers.map((u) =>
+            u._id === userId ? { ...u, active: !currentStatus } : u
+          )
+        );
+      }
     } catch (err) {
-      toast.error("Action failed");
+      console.error("Update Error:", err.response);
+      toast.error(err.response?.data?.message || "Action failed");
     }
   };
 
