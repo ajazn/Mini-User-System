@@ -42,7 +42,7 @@ const Signup = () => {
                 type="text"
                 required
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                placeholder="John Doe"
+                placeholder="Enter Full Name"
                 onChange={(e) =>
                   setFormData({ ...formData, fullName: e.target.value })
                 }
@@ -56,7 +56,7 @@ const Signup = () => {
                 type="email"
                 required
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                placeholder="john@example.com"
+                placeholder="Enter your email"
                 onChange={(e) =>
                   setFormData({ ...formData, email: e.target.value })
                 }

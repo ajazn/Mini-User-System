@@ -4,8 +4,9 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
+import Navbar from "./components/Navbar"; // Import Navbar
 import Login from "./pages/Login";
-import Signup from "./pages/Signup"; // Import Signup
+import Signup from "./pages/Signup";
 import { useAuth } from "./context/AuthContext";
 
 function App() {
@@ -20,31 +21,34 @@ function App() {
 
   return (
     <Router>
-      <Routes>
-        {/* If logged in, redirect away from login/signup */}
-        <Route
-          path="/login"
-          element={!user ? <Login /> : <Navigate to="/profile" />}
-        />
-        <Route
-          path="/signup"
-          element={!user ? <Signup /> : <Navigate to="/profile" />}
-        />
+      <div className="min-h-screen bg-gray-50">
+        <Navbar /> {/* Navbar stays at the top of all pages */}
+        <Routes>
+          <Route
+            path="/login"
+            element={!user ? <Login /> : <Navigate to="/profile" />}
+          />
+          <Route
+            path="/signup"
+            element={!user ? <Signup /> : <Navigate to="/profile" />}
+          />
 
-        {/* Placeholder for Profile */}
-        <Route
-          path="/profile"
-          element={
-            user ? (
-              <div className="p-10">Welcome, {user.fullName}!</div>
-            ) : (
-              <Navigate to="/login" />
-            )
-          }
-        />
+          <Route
+            path="/profile"
+            element={
+              user ? (
+                <div className="p-10 text-2xl">
+                  Welcome to your Profile, {user.fullName}!
+                </div>
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
+          />
 
-        <Route path="/" element={<Navigate to="/login" />} />
-      </Routes>
+          <Route path="/" element={<Navigate to="/login" />} />
+        </Routes>
+      </div>
     </Router>
   );
 }

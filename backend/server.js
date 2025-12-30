@@ -9,9 +9,21 @@ dotenv.config();
 
 const app = express();
 
-// Middleware
+// --- MIDDLEWARE ORDER IS CRITICAL ---
+
+// 1. CORS must be at the very top
+app.use(
+  cors({
+    origin: "http://localhost:5173", // Allow your React app
+    methods: ["GET", "POST", "PATCH", "DELETE", "PUT"],
+    credentials: true,
+  })
+);
+
+// 2. Parse JSON bodies
 app.use(express.json());
-app.use(cors());
+
+// 3. Routes must come AFTER the middleware above
 app.use("/api/users", userRouter);
 
 // Test Route
@@ -21,7 +33,6 @@ app.get("/", (req, res) => {
 
 // Database Connection
 const PORT = process.env.PORT || 5000;
-const MONGO_URI = process.env.MONGO_URI;
 
 mongoose
   .connect(process.env.MONGO_URI)
