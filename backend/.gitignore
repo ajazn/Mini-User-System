@@ -1,0 +1,59 @@
+# Node modules
+node_modules/
+
+# Environment / secrets
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Build / output
+dist/
+build/
+out/
+lib/
+coverage/
+.nyc_output/
+*.tsbuildinfo
+storybook-static/
+
+# Caches
+.cache/
+.parcel-cache/
+.vite/
+.pnp/
+.pnp.js
+
+# Editor / OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Database / storage / uploads
+*.sqlite
+*.sqlite3
+*.db
+/uploads/
+tmp/
+temp/
+
+# Keys / certificates
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Docker overrides
+docker-compose.override.yml
+
+# Misc
+.node_repl_history
